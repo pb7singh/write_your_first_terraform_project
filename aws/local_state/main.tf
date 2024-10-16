@@ -14,11 +14,24 @@ provider "aws" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-0866a3c8686eaeeba"
+  ami           = "aws_ami.latest"
   instance_type = "t2.micro"
 
   tags = {
     Name = "Terraform_Demo"
   }
+
+  data "aws_ami" "latest" {
+  owners           = ["099720109477"]
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+  }
+
+ 
+  }
 }
+  
+
 
